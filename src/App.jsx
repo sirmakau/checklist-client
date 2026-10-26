@@ -1,5 +1,6 @@
-
 import { useEffect, useState } from "react";
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const styles = {
   page: {
@@ -361,16 +362,13 @@ function App() {
   setActionError("");
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/api/tasks",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title }),
-      }
-    );
+    const response = await fetch(`${API_URL}/api/tasks`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ title }),
+});
 
     const result = await response.json();
 
@@ -405,10 +403,8 @@ function App() {
       setError("");
 
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/tasks"
-        );
-
+      const response = await fetch(`${API_URL}/api/tasks`);
+      
         if (!response.ok) {
           throw new Error(`Request failed: ${response.status}`);
         }
